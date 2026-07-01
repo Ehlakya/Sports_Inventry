@@ -3,9 +3,11 @@ require('dotenv').config();
 
 let sequelize;
 
-if (process.env.DATABASE_URL) {
-  console.log(`Connecting to database via DATABASE_URL...`);
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
+const dbUrl = process.env.DATABASE_URL || 'postgresql://neondb_owner:npg_ECXfNZ6ysgI1@ep-still-sun-aovkr6kn-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require';
+
+if (dbUrl) {
+  console.log(`Connecting to database via connection string...`);
+  sequelize = new Sequelize(dbUrl, {
     dialect: 'postgres',
     logging: false,
     dialectOptions: {
